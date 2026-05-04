@@ -37,7 +37,7 @@ export default function LoginPage() {
   const onKey = e => e.key === 'Enter' && (tab === 'login' ? handleLogin() : handleRegister());
 
   return (
-    <div className="login-wrap">
+    <div className="login-wrap" style={{ display: "flex" , flexDirection: "column"  }}>
       <div className="login-box" onKeyDown={onKey}>
         <div className="login-brand">Phòng<em>Khám</em></div>
 
@@ -68,6 +68,20 @@ export default function LoginPage() {
           </>
         )}
       </div>
+      <div>
+  <button
+    className="btn btn-primary"
+    style={{ width: '100%', padding: '.75rem', marginTop: '.75rem' }}
+    onClick={() =>
+      window.open(
+        "https://docs.google.com/document/d/1GCYifyrhPnUq6bMFg3GW0oDzUeeQmvFkfYcT8mQl_yo/edit",
+        "_blank"
+      )
+    }
+  >
+    Hướng dẫn sử dụng
+  </button>
+</div>
     </div>
   );
 }
