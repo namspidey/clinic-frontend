@@ -1,70 +1,102 @@
-# Getting Started with Create React App
+# 🏥 Clinic Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React client cho hệ thống đặt lịch khám bệnh trực tuyến.
 
-## Available Scripts
+**Demo:** [clinic-frontend-e452.vercel.app](https://clinic-frontend-e452.vercel.app)  
+**Backend API:** [clinic-backend-nvos.onrender.com](https://clinic-backend-nvos.onrender.com)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Tính năng
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Đăng ký / Đăng nhập (JWT)
+- Xem danh sách bác sĩ, tìm kiếm theo chuyên khoa, phân trang
+- Xem lịch trống theo từng ngày (slot 1 tiếng, 8h–17h)
+- Đặt lịch khám, hủy lịch
+- Dashboard bác sĩ: xem lịch hẹn, đánh dấu hoàn thành
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Tech stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+| | |
+|---|---|
+| Framework | React 18 (Create React App) |
+| Routing | React Router DOM v6 |
+| State | React Context + useState |
+| Styling | CSS thuần (không dùng UI library) |
+| Deploy | Vercel |
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Cấu trúc project
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+src/
+├── api.js              # Tất cả API calls (fetch wrapper)
+├── AuthContext.jsx     # Global auth state (login/logout)
+├── useToast.jsx        # Hook hiển thị toast notification
+├── index.css           # Global styles
+├── App.jsx             # Router + PrivateRoute
+├── Layout.jsx          # Sidebar layout dùng chung
+├── LoginPage.jsx       # Đăng nhập / Đăng ký
+├── DoctorsPage.jsx     # Tìm bác sĩ + SlotPicker modal
+├── MyBookingsPage.jsx  # Lịch khám của bệnh nhân
+└── DoctorPage.jsx      # Dashboard bác sĩ
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Chạy local
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Yêu cầu:** Node.js 18+
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+# Clone repo
+git clone https://github.com/your-username/clinic-frontend.git
+cd clinic-frontend
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+# Cài dependencies
+npm install
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Chạy dev server
+npm start
+# → http://localhost:3000
+```
 
-## Learn More
+**Đổi URL backend** trong `src/api.js`:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```js
+// Development - trỏ về local backend
+const BASE = 'http://localhost:8080/api/v1';
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+// Production - trỏ về Render
+const BASE = 'https://clinic-backend-nvos.onrender.com/api/v1';
+```
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Tài khoản test
 
-### Analyzing the Bundle Size
+| Username | Password | Role |
+|---|---|---|
+| `benhnhan1` | `123456` | Bệnh nhân |
+| `benhnhan2` | `123456` | Bệnh nhân |
+| `bacsi1` | `123456` | Bác sĩ |
+| `bacsi2` | `123456` | Bác sĩ |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## Deploy lên Vercel
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+# Cài Vercel CLI
+npm install -g vercel
 
-### Advanced Configuration
+# Deploy
+vercel --prod
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Hoặc kết nối GitHub repo với Vercel, tự động deploy khi push.
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> ⚠️ Đảm bảo `BASE` trong `api.js` trỏ đúng URL backend production trước khi deploy.
