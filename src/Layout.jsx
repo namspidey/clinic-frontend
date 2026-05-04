@@ -11,9 +11,7 @@ export default function Layout({ children, links }) {
     navigate('/');
   }
 
-  function initials(name = '') {
-    return name.split(' ').slice(-2).map(w => w[0]).join('').toUpperCase();
-  }
+  
 
   return (
     <div className="layout">

@@ -154,7 +154,10 @@ export default function DoctorsPage() {
   const [selected, setSelected]   = useState(null);
   const { Toast }                 = useToast();
 
-  useEffect(() => { load(0); }, [specialty]);
+  useEffect(() => {
+  load(0);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [specialty]);
 
   async function load(p = 0) {
     setLoading(true);

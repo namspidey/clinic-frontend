@@ -5,9 +5,7 @@ import { useToast } from './useToast.jsx';
 function fmtDT(dt) {
   return new Date(dt).toLocaleString('vi-VN', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
 }
-function fmtTime(dt) {
-  return new Date(dt).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
-}
+
 const STATUS = { BOOKED: ['Đã đặt', 'badge-green'], CANCELLED: ['Đã hủy', 'badge-red'], DONE: ['Hoàn thành', 'badge-gray'] };
 
 export default function DoctorPage() {
