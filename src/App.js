@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './AuthContext';
 import Layout from './Layout';
 import LoginPage from './LoginPage';
+import HomePage from './HomePage';        // ← thêm
 import DoctorsPage from './DoctorsPage';
 import MyBookingsPage from './MyBookingsPage';
 import DoctorPage from './DoctorPage';
@@ -16,7 +17,7 @@ const DOCTOR_LINKS = [
 
 function PrivateRoute({ children, role }) {
   const { user } = useAuth();
-  if (!user) return <Navigate to="/" />;
+  if (!user) return <Navigate to="/login" />;
   if (role && user.role !== role) return <Navigate to="/" />;
   return children;
 }
@@ -33,8 +34,11 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LoginPage />} />
+          {/* Public */}
+          <Route path="/"      element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
 
+          {/* Patient */}
           <Route path="/patient" element={
             <PrivateRoute role="PATIENT">
               <PatientLayout><DoctorsPage /></PatientLayout>
@@ -46,6 +50,7 @@ export default function App() {
             </PrivateRoute>
           } />
 
+          {/* Doctor */}
           <Route path="/doctor" element={
             <PrivateRoute role="DOCTOR">
               <DoctorLayout><DoctorPage /></DoctorLayout>
