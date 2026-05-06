@@ -120,7 +120,10 @@ export default function HomePage() {
     const { user } = useAuth();
     const navigate = useNavigate();
 
-    useEffect(() => { load(0); }, [specialty]);
+    useEffect(() => {
+        load(0);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [specialty]);
 
     async function load(p = 0) {
         setLoading(true);
@@ -162,7 +165,7 @@ export default function HomePage() {
                     </div>
                     <button
                         className="btn btn-sm"
-                        style={{ background: 'rgba(255,255,255,.1)', color: 'rgba(255,255,255,.8)', border: '1px solid rgba(255,255,255,.2)', fontSize:'large' }}
+                        style={{ background: 'rgba(255,255,255,.1)', color: 'rgba(255,255,255,.8)', border: '1px solid rgba(255,255,255,.2)', fontSize: 'large' }}
                         onClick={() => window.open('https://docs.google.com/document/d/1GCYifyrhPnUq6bMFg3GW0oDzUeeQmvFkfYcT8mQl_yo/edit', '_blank')}
                     >
                         📄 Hướng dẫn sử dụng
